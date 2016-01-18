@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:Piezo"
+      name = "Piezo">
+      <FileRef
+         location = "group:Info.plist">
+      </FileRef>
+      <FileRef
+         location = "group:PiezoPlugIn.h">
+      </FileRef>
+      <FileRef
+         location = "group:PiezoPlugIn.m">
+      </FileRef>
+      <FileRef
+         location = "group:PocketSocket-Prefix.pch">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocket.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocket.m">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketBuffer.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketBuffer.m">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketDeflater.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketDeflater.m">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketDriver.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketDriver.m">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketInflater.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketInflater.m">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketInternal.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketNetworkThread.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketNetworkThread.m">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketServer.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketServer.m">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketTypes.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketUTF8Decoder.h">
+      </FileRef>
+      <FileRef
+         location = "group:PSWebSocketUTF8Decoder.m">
+      </FileRef>
+      <FileRef
+         location = "group:PiezoSettings.xib">
+      </FileRef>
+      <FileRef
+         location = "group:PZChannel.h">
+      </FileRef>
+      <FileRef
+         location = "group:PZChannel.m">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:Piezo.xcodeproj">
+   </FileRef>
+</Workspace>
