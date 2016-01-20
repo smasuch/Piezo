@@ -17,9 +17,15 @@
 #define	kQCPlugIn_Name				@"Piezo"
 #define	kQCPlugIn_Description		@"Display the latest message in a Slack channel."
 
-NSString * const emptyChannelMessage = @"No messages in channel";
+NSString * const executionStartedMessage = @"Execution started";
+NSString * const emptyChannelMessage = @"No recent messages in channel";
 NSString * const connectionFailedMessage = @"Connection failed";
-NSString * const authenticationFailedMessage = @"Authentication failed";
+NSString * const authenticationFailedMessage = @"Authentication failed: %@";
+NSString * const authenticationSucceededMessage = @"Authentication succeeded";
+NSString * const webSocketFailedMessage = @"Web socket failed";
+NSString * const webSocketOpenedMessage = @"Web socket opened";
+NSString * const webSocketClosedMessage = @"Web socket closed";
+
 
 @interface PiezoPlugIn () <PSWebSocketDelegate>
 
@@ -81,17 +87,16 @@ NSString * const authenticationFailedMessage = @"Authentication failed";
 #pragma mark - Web socket delegate methods
 
 - (void)webSocketDidOpen:(PSWebSocket *)webSocket {
-    NSLog(@"websocket did open: %@", webSocket);
+    self.existingMessageContent = webSocketOpenedMessage;
 }
 
 - (void)webSocket:(PSWebSocket *)webSocket didFailWithError:(NSError *)error
 {
-    NSLog(@"websocket failed: %@", error);
+    self.existingMessageContent = webSocketFailedMessage;
 }
 
 - (void)webSocket:(PSWebSocket *)webSocket didReceiveMessage:(id)message
 {
-    NSLog(@"Message: %@", message);
     NSData *messageData = [message dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *messageJSON = [NSJSONSerialization JSONObjectWithData:messageData options:NSJSONReadingAllowFragments error:nil];
     [self handleMessageJSON:messageJSON];
@@ -99,7 +104,7 @@ NSString * const authenticationFailedMessage = @"Authentication failed";
 }
 
 - (void)webSocket:(PSWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
-    NSLog(@"websocket closed: %@", reason);
+    self.existingMessageContent = webSocketClosedMessage;
 }
 
 
@@ -119,13 +124,19 @@ NSString * const authenticationFailedMessage = @"Authentication failed";
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    self.existingMessageContent = authenticationSucceededMessage;
     NSDictionary *requestResult = [NSJSONSerialization JSONObjectWithData:self.authRequestData options:NSJSONReadingAllowFragments error:nil];
-    NSLog(@"Request result: %@", requestResult[@"url"]);
-    [self storeChannels:requestResult[@"channels"]];
-    [self startSocket:requestResult[@"url"]];
+    
+    if ([requestResult[@"ok"] boolValue]) {
+        [self storeChannels:requestResult[@"channels"]];
+        [self startSocket:requestResult[@"url"]];
+    } else {
+        self.existingMessageContent = [NSString stringWithFormat: authenticationFailedMessage, requestResult[@"error"]];
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    self.existingMessageContent = connectionFailedMessage;
 }
 
 
@@ -200,23 +211,15 @@ NSString * const authenticationFailedMessage = @"Authentication failed";
 
 #pragma mark - Plugin execution
 
-- (BOOL)startExecution:(id <QCPlugInContext>)context
-{
-    self.existingMessageContent = @"No auth token set yet.";
-    return YES;
-}
-
 - (void)startAuthenticationRequest
 {
     NSMutableURLRequest *socketRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://slack.com/api/rtm.start?token=%@", self.existingAuthToken]]];
     
     self.authConnection = [[NSURLConnection alloc] initWithRequest:socketRequest delegate:self];
-    
 }
 
 - (void)enableExecution:(id <QCPlugInContext>)context
 {
-    NSLog(@"Peizo executing, with auth token %@", self.existingAuthToken);
     [self startAuthenticationRequest];
 }
 
