@@ -342,10 +342,7 @@
 			baseConfigurationReference = 57FBF0FA423C0A125EB7DF67 /* Pods-Piezo.debug.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/SocketRocket-master/build/Debug",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(OBJROOT)/UninstalledProducts/include",
 					"$(TARGET_BUILD_DIR)/usr/local/lib/include",
@@ -367,10 +364,7 @@
 			baseConfigurationReference = 80F858C9FA3AEC8752F50A27 /* Pods-Piezo.release.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/SocketRocket-master/build/Debug",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				HEADER_SEARCH_PATHS = (
 					"$(OBJROOT)/UninstalledProducts/include",
 					"$(TARGET_BUILD_DIR)/usr/local/lib/include",
