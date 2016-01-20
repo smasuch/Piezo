@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1DB46B3DDA63E1CA0B5681C7 /* libPods-Piezo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7AE315718E649935B34453D9 /* libPods-Piezo.a */; };
 		6007AB3F1C41F16F00A4275E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6007AB3E1C41F16F00A4275E /* CFNetwork.framework */; };
 		6007AB411C41F17300A4275E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6007AB401C41F17300A4275E /* Security.framework */; };
 		6007AB431C41F18000A4275E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6007AB421C41F18000A4275E /* libz.tbd */; };
@@ -23,7 +22,6 @@
 		6007AB7F1C4DF52900A4275E /* PSWebSocketNetworkThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 6007AB7A1C4DF52900A4275E /* PSWebSocketNetworkThread.m */; };
 		6007AB801C4DF52900A4275E /* PSWebSocketServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6007AB7B1C4DF52900A4275E /* PSWebSocketServer.m */; };
 		6007AB811C4DF52900A4275E /* PSWebSocketUTF8Decoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6007AB7C1C4DF52900A4275E /* PSWebSocketUTF8Decoder.m */; };
-		6011E7BC1C213CB7006AE6EC /* Piezo.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 6011E7BB1C213CB7006AE6EC /* Piezo.entitlements */; };
 		608DEFAE1C13AFCD004A265D /* PiezoPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 608DEFAD1C13AFCD004A265D /* PiezoPlugIn.m */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +42,6 @@
 		6007AB7A1C4DF52900A4275E /* PSWebSocketNetworkThread.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PSWebSocketNetworkThread.m; path = Pods/PocketSocket/PocketSocket/PSWebSocketNetworkThread.m; sourceTree = "<group>"; };
 		6007AB7B1C4DF52900A4275E /* PSWebSocketServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PSWebSocketServer.m; path = Pods/PocketSocket/PocketSocket/PSWebSocketServer.m; sourceTree = "<group>"; };
 		6007AB7C1C4DF52900A4275E /* PSWebSocketUTF8Decoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PSWebSocketUTF8Decoder.m; path = Pods/PocketSocket/PocketSocket/PSWebSocketUTF8Decoder.m; sourceTree = "<group>"; };
-		6011E7BB1C213CB7006AE6EC /* Piezo.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Piezo.entitlements; sourceTree = "<group>"; };
 		608DEFA91C13AFCD004A265D /* Piezo.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Piezo.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		608DEFAC1C13AFCD004A265D /* PiezoPlugIn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PiezoPlugIn.h; sourceTree = "<group>"; };
 		608DEFAD1C13AFCD004A265D /* PiezoPlugIn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PiezoPlugIn.m; sourceTree = "<group>"; };
@@ -63,7 +60,6 @@
 				6007AB431C41F18000A4275E /* libz.tbd in Frameworks */,
 				6007AB411C41F17300A4275E /* Security.framework in Frameworks */,
 				6007AB3F1C41F16F00A4275E /* CFNetwork.framework in Frameworks */,
-				1DB46B3DDA63E1CA0B5681C7 /* libPods-Piezo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +83,6 @@
 				6007AB441C41F18B00A4275E /* WebKit.framework */,
 				6007AB401C41F17300A4275E /* Security.framework */,
 				6007AB3E1C41F16F00A4275E /* CFNetwork.framework */,
-				6011E7BB1C213CB7006AE6EC /* Piezo.entitlements */,
 				608DEFAB1C13AFCD004A265D /* Piezo */,
 				608DEFAA1C13AFCD004A265D /* Products */,
 				D464DDA82DAD91797A222D71 /* Pods */,
@@ -190,7 +185,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6011E7BC1C213CB7006AE6EC /* Piezo.entitlements in Resources */,
 				6007AB6F1C4B051F00A4275E /* PiezoSettings.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
