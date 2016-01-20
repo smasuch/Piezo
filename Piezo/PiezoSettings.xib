@@ -13,11 +13,11 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <userDefaultsController representsSharedInstance="YES" id="tEy-Qa-vwj"/>
         <view id="i78-6U-6o3">
-            <rect key="frame" x="0.0" y="0.0" width="279" height="430"/>
+            <rect key="frame" x="0.0" y="0.0" width="289" height="397"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="acs-aB-WFy">
-                    <rect key="frame" x="88" y="356" width="171" height="22"/>
+                    <rect key="frame" x="112" y="323" width="167" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="yic-3p-vDd">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -28,7 +28,7 @@
                     </connections>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AHv-qc-InY">
-                    <rect key="frame" x="25" y="392" width="71" height="17"/>
+                    <rect key="frame" x="35" y="356" width="71" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Auth token" id="59g-ro-tty">
                         <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -36,7 +36,7 @@
                     </textFieldCell>
                 </textField>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Obj-5t-s7y">
-                    <rect key="frame" x="7" y="360" width="93" height="17"/>
+                    <rect key="frame" x="17" y="324" width="93" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Channel name" id="sQ8-op-hxj">
                         <font key="font" size="11" name=".HelveticaNeueDeskInterface-Regular"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -44,7 +44,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Jg-8T-xVc">
-                    <rect key="frame" x="88" y="388" width="171" height="22"/>
+                    <rect key="frame" x="112" y="355" width="167" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="uZN-Oz-hUL">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -55,7 +55,7 @@
                     </connections>
                 </textField>
             </subviews>
-            <point key="canvasLocation" x="302.5" y="314"/>
+            <point key="canvasLocation" x="307.5" y="297.5"/>
         </view>
     </objects>
 </document>
