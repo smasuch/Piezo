@@ -29,18 +29,27 @@ NSString * const webSocketClosedMessage = @"Web socket closed";
 
 @interface PiezoPlugIn () <PSWebSocketDelegate>
 
+/** Websocket to connect to RTM API. */
 @property (nonatomic) PSWebSocket *slackSocket;
 
+/** Settings property for team authentication token. */
 @property (copy, nonatomic) NSString *existingAuthToken;
 
+/** Settings property for selected channel name. */
 @property (copy, nonatomic) NSString *existingChannelName;
 
+/** Holding property for message contents. This patch runs asynchronously,
+    so we can't directly set the output property when RTM events come in.
+ */
 @property (copy) NSString *existingMessageContent;
 
+/** Channels on connected Slack team. */
 @property (copy) NSDictionary *channels;
 
+/** Connection for authentication request. */
 @property (nonatomic) NSURLConnection *authConnection;
 
+/** Data collected from authentication request response. */
 @property (nonatomic) NSMutableData* authRequestData;
 
 @end
@@ -100,7 +109,6 @@ NSString * const webSocketClosedMessage = @"Web socket closed";
     NSData *messageData = [message dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *messageJSON = [NSJSONSerialization JSONObjectWithData:messageData options:NSJSONReadingAllowFragments error:nil];
     [self handleMessageJSON:messageJSON];
-    
 }
 
 - (void)webSocket:(PSWebSocket *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
@@ -133,6 +141,8 @@ NSString * const webSocketClosedMessage = @"Web socket closed";
     } else {
         self.existingMessageContent = [NSString stringWithFormat: authenticationFailedMessage, requestResult[@"error"]];
     }
+ 
+    self.authRequestData = nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -142,6 +152,18 @@ NSString * const webSocketClosedMessage = @"Web socket closed";
 
 #pragma mark - API related methods
 
+/** Send an authentication request to the rtm.start method,
+    hoping to get back a success message that has the RTM websocket url */
+- (void)startAuthenticationRequest
+{
+    NSMutableURLRequest *socketRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://slack.com/api/rtm.start?token=%@", self.existingAuthToken]]];
+    
+    self.authConnection = [[NSURLConnection alloc] initWithRequest:socketRequest delegate:self];
+}
+
+/** Takes a websocket URL string and opens up a websocket connection.
+    @param socketURLString An NSString that is the URL for the websocket.
+ */
 - (void)startSocket:(NSString *)socketURLString {
     if (self.slackSocket) {
         [self.slackSocket close];
@@ -157,6 +179,10 @@ NSString * const webSocketClosedMessage = @"Web socket closed";
     }
 }
 
+/** Take an array of dictionaries representing channels from the authentication
+    request response, turn them into PZChannel objects, and save them for later use.
+    @param channelArray Array of dictionaries representing channels.
+ */
 - (void)storeChannels:(NSArray *)channelArray
 {
     NSMutableDictionary *channelsDictionary = [NSMutableDictionary dictionary];
@@ -176,6 +202,10 @@ NSString * const webSocketClosedMessage = @"Web socket closed";
     
 }
 
+/** Extracts the message text from a dictionary representing an RTM api
+    message event (if it's the sort of message we want).
+    @param messageJSON A dictionary representing a RTM API message event.
+ */
 - (NSString *)textFromMessage:(NSDictionary *)messageJSON
 {
     if ([messageJSON[@"type"] isEqual:@"message"] && (messageJSON[@"subtype"] == nil)) {
@@ -185,19 +215,28 @@ NSString * const webSocketClosedMessage = @"Web socket closed";
     return nil;
 }
 
-
+/** Take an NSDictionary of messageJSON, extract the text, and store it as
+    the latest message for a channel. This is so that if the user switches
+    channels, the latest message is already available without another API
+    call. If the message is in the currently selected channel, the holding
+    property for the outputMessage is set to the message text.
+    @param messageJSON A dictionary representing a RTM API message event.
+ */
 - (void)handleMessageJSON:(NSDictionary *)messageJSON
 {
     NSString *textFromMessage = [self textFromMessage:messageJSON];
     if (textFromMessage) {
         PZChannel *messageChannel = self.channels[messageJSON[@"channel"]];
         messageChannel.lastMessageText = textFromMessage;
-        if ([messageChannel.name isEqualToString:self.existingChannelName]) {
+        if ([messageChannel.name caseInsensitiveCompare:self.existingChannelName] == NSOrderedSame) {
             self.existingMessageContent = textFromMessage;
         }
     }
 }
 
+/** Find the latest message for the set channel name, and set the holding
+    property to that text.
+ */
 - (void)switchChannelSelection
 {
     for (PZChannel *channel in [self.channels allValues]) {
@@ -210,13 +249,6 @@ NSString * const webSocketClosedMessage = @"Web socket closed";
 
 
 #pragma mark - Plugin execution
-
-- (void)startAuthenticationRequest
-{
-    NSMutableURLRequest *socketRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://slack.com/api/rtm.start?token=%@", self.existingAuthToken]]];
-    
-    self.authConnection = [[NSURLConnection alloc] initWithRequest:socketRequest delegate:self];
-}
 
 - (void)enableExecution:(id <QCPlugInContext>)context
 {
@@ -235,15 +267,15 @@ NSString * const webSocketClosedMessage = @"Web socket closed";
     [self.slackSocket close];
 }
 
+
+#pragma mark - Settings properties & related methods
+
 - (QCPlugInViewController*) createViewController
 {
     return [[QCPlugInViewController alloc]
             initWithPlugIn:self
             viewNibName:@"PiezoSettings"];
 }
-
-#pragma mark - Settings properties
-
 
 - (void)setExistingAuthToken:(NSString *)existingAuthToken
 {

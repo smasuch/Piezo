@@ -10,6 +10,8 @@
 
 @interface PiezoPlugIn : QCPlugIn
 
+/** The string containing either the latest message withouth a subtype
+    or an status message about connection setup progress or connection error. */
 @property (copy) NSString* outputMessage;
 
 @end
